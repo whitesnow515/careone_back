@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3002', // Replace with the frontend URL
+  origin: 'http://localhost:3000', // Replace with the frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow the methods your API needs
   credentials: true // If you need to support cookies or other credentials
 }));
