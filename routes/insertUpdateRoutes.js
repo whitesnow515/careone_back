@@ -55,6 +55,11 @@ router.post('/saveData', async (req, res) => {
   }
 });
 
+router.get('/test', async (req, res) => { 
+  console.log("successful");
+  return res.send('Successful Connection')  
+});
+
 // Utility function to format the date to yyyy-mm-dd hh:mm:ss
 function formatDate(date) {
   const yyyy = date.getFullYear();
