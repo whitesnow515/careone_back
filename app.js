@@ -7,10 +7,18 @@ const cors = require('cors');
 
 const app = express();
 
+const allowedOrigins = ['https://www.welltrackone.com', 'http://localhost:3000'];
+
 app.use(cors({
-  origin: 'http://localhost:3000', // Replace with the frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow the methods your API needs
-  credentials: true // If you need to support cookies or other credentials
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Allow non-browser requests like Postman
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // If using cookies or session authentication
 }));
 
 // Middleware to parse incoming requests with JSON payloads
