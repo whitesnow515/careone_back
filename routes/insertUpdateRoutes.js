@@ -85,15 +85,15 @@ router.post('/saveBrokerData', async (req, res) => {
     // Step 7: Check if the row already exists
     const result = await sql.query`
       SELECT * FROM PatientApplicants 
-      WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email}
+      WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_last_name} AND BrokerFirstName = ${broker_first_name} AND BrokerEmail = ${broker_email}
     `;
 
     if (result.recordset.length > 0) {
       // Step 8: If the record exists, update Phone and DateAdded
       await sql.query`
         UPDATE PatientApplicants
-        SET Phone = ${phone}, DateAdded = ${formattedDateAdded}
-        WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email}
+        SET Phone = ${phone}, DateAdded = ${formattedDateAdded}, BrokerPhone = ${broker_phone_number}, DOB = ${dob}, MedicareNumber = ${medicare_number}
+        WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_last_name} AND BrokerFirstName = ${broker_first_name} AND BrokerEmail = ${broker_email}
       `;
       return res.send('Patient record updated successfully.');
     } else {
