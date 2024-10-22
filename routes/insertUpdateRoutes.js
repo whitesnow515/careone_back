@@ -3,9 +3,10 @@ const router = express.Router();
 const sql = require('mssql');
 const config = require('../dbConfig');
 const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
 
 // Set up your SendGrid API key
-sgMail.setApiKey("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");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // POST route for inserting data
 router.post('/saveData', async (req, res) => {  
@@ -131,7 +132,7 @@ router.post('/send-email', async (req, res) => {
 
 router.get('/test', async (req, res) => { 
   console.log(process.env.SENDGRID_API_KEY);
-  return res.send('Successful Connection')  
+  return res.send(process.env.SENDGRID_API_KEY);  
 });
 
 // Utility function to format the date to yyyy-mm-dd hh:mm:ss
