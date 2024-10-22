@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 
-const allowedOrigins = ['https://www.welltrackone.com', 'http://localhost:3002'];
+const allowedOrigins = ['http://www.careone-brokers.com:8080', 'http://localhost:3002'];
 
 app.use(cors({
   origin: function (origin, callback) {

@@ -5,7 +5,7 @@ const config = require('../dbConfig');
 const sgMail = require('@sendgrid/mail');
 
 // Set up your SendGrid API key
-sgMail.setApiKey("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");
+sgMail.setApiKey("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");
 
 // POST route for inserting data
 router.post('/saveData', async (req, res) => {  
