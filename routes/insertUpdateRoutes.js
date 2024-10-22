@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
-const config = require('../dbConfig_dev');
+const config = require('../dbConfig');
 const sgMail = require('@sendgrid/mail');
 
 // Set up your SendGrid API key
