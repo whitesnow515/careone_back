@@ -2,12 +2,12 @@
 const express = require('express');
 const sql = require('mssql');
 const insertUpdateRoutes = require('./routes/insertUpdateRoutes');
-const config = require('./dbConfig');
+const config = require('./dbConfig_dev');
 const cors = require('cors');
 
 const app = express();
 
-const allowedOrigins = ['https://www.welltrackone.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://www.welltrackone.com', 'http://localhost:3002'];
 
 app.use(cors({
   origin: function (origin, callback) {
