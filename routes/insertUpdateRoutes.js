@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const sql = require('mssql');
-const config = require('../dbConfig');
+const config = require('../dbConfig_dev');
 const sgMail = require('@sendgrid/mail');
 
 // Set up your SendGrid API key
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey("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");
 
 // POST route for inserting data
 router.post('/saveData', async (req, res) => {  
