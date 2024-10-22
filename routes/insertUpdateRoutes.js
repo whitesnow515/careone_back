@@ -5,7 +5,7 @@ const config = require('../dbConfig_dev');
 const sgMail = require('@sendgrid/mail');
 
 // Set up your SendGrid API key
-sgMail.setApiKey("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");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // POST route for inserting data
 router.post('/saveData', async (req, res) => {  
@@ -130,7 +130,7 @@ router.post('/send-email', async (req, res) => {
 });
 
 router.get('/test', async (req, res) => { 
-  console.log("successful");
+  console.log(process.env.SENDGRID_API_KEY);
   return res.send('Successful Connection')  
 });
 
