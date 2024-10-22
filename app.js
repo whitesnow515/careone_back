@@ -2,7 +2,7 @@
 const express = require('express');
 const sql = require('mssql');
 const insertUpdateRoutes = require('./routes/insertUpdateRoutes');
-const config = require('./dbConfig_dev');
+const config = require('./dbConfig');
 const cors = require('cors');
 
 const app = express();
