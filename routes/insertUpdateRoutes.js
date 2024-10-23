@@ -131,8 +131,8 @@ router.post('/send-email', async (req, res) => {
 });
 
 router.get('/test', async (req, res) => { 
-  console.log(process.env.SENDGRID_API_KEY);
-  return res.send(process.env.SENDGRID_API_KEY);  
+  console.log("Successful !!!");
+  return res.send("Successful !!!");  
 });
 
 // Utility function to format the date to yyyy-mm-dd hh:mm:ss
