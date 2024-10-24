@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 
-const allowedOrigins = ['https://careone-backend.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://www.welltrackone.com', 'http://localhost:3000'];
 
 app.use(cors({
   origin: function (origin, callback) {
