@@ -114,7 +114,7 @@ router.post('/saveBrokerData', async (req, res) => {
 router.post('/send-email', async (req, res) => { 
   const { lastName, firstName, email, phone, broker_first_name, broker_last_name, broker_email, agent_number, broker_phone_number, dob, medicare_number } = req.body;
   const patientText = (
-    <div>
+    <>
       <p>Dear {firstName} {lastName}</p><br></br>
       <p>Your Medicare Insurance Agent, {broker_first_name} {broker_last_name}, has sent you a link that will allow you to enroll in
       a Medicare approved preventative wellness program. This program gives you access to
@@ -125,13 +125,13 @@ router.post('/send-email', async (req, res) => {
       right away.</p><br></br>
       <p>Thank you,</p><br></br>
       <p>On behalf of {broker_first_name} {broker_last_name}</p>
-    </div>
+    </>
   );
 
   const brokerText = (
-    <div>
+    <>
       <p>Thank you for submitting your client – {firstName} {lastName}</p>
-    </div>
+    </>
   )
   const msg_broker = {
     to: broker_email,
