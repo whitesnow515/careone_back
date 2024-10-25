@@ -125,11 +125,11 @@ router.post('/send-email', async (req, res) => {
         <p>Thank you,</p>
         <p>On behalf of ${broker_first_name} ${broker_last_name}</p>`;
 
-  const brokerText = `<p>Thank you for submitting your client – ${firstName} ${lastName}</p>`;
+  const brokerText = `<p>Thank you for submitting your client – ${firstName} ${lastName} to the CareONE Preventative Health and Wellness Program.  We will keep you appraised of progress with your client.</p>`;
   const msg_broker = {
     to: broker_email,
     from: 'info@careone-concierge.com',
-    subject: 'Confirm',
+    subject: 'Confirmation of your client application',
     html: brokerText,
   };
 
