@@ -113,9 +113,8 @@ router.post('/saveBrokerData', async (req, res) => {
 
 router.post('/send-email', async (req, res) => { 
   const { lastName, firstName, email, phone, broker_first_name, broker_last_name, broker_email, agent_number, broker_phone_number, dob, medicare_number } = req.body;
-  const patientText = (
-    `
-      <p>Dear ${firstName} ${lastName}</p><br></br>
+  const patientText = 
+    ` <p>Dear ${firstName} ${lastName}</p><br></br>
       <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
       a Medicare approved preventative wellness program. This program gives you access to
       preventative health services that can help you improve your health and lifestyle significantly.
@@ -125,14 +124,11 @@ router.post('/send-email', async (req, res) => {
       right away.</p><br></br>
       <p>Thank you,</p><br></br>
       <p>On behalf of ${broker_first_name} ${broker_last_name}</p><br></br>
-    `
-  );
+    `;
 
-  const brokerText = (
-    `
+  const brokerText = `
       <p>Thank you for submitting your client – ${firstName} ${lastName}</p>
-    `
-  )
+    `;
   const msg_broker = {
     to: broker_email,
     from: 'info@careone-concierge.com', // Use a verified email address
