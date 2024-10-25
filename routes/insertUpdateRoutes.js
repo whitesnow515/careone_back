@@ -115,48 +115,53 @@ router.post('/send-email', async (req, res) => {
   const { lastName, firstName, email, phone, broker_first_name, broker_last_name, broker_email, agent_number, broker_phone_number, dob, medicare_number } = req.body;
   const patientText = 
       `<p>Dear ${firstName} ${lastName}</p><br></br>
-      <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
-      a Medicare approved preventative wellness program. This program gives you access to
-      preventative health services that can help you improve your health and lifestyle significantly.
-      Our clinical team will explain the program fully to you and answer all of your questions as well as
-      schedule you for your preventative health screening.</p><br></br>
-      <p>Please <a href="https://www.welltrackone.com/web-patients">click here</a> to enroll in the program and you’ll be contacted by one of our clinical team
-      right away.</p><br></br>
-      <p>Thank you,</p><br></br>
-      <p>On behalf of ${broker_first_name} ${broker_last_name}</p><br></br>`;
+        <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
+        a Medicare approved preventative wellness program. This program gives you access to
+        preventative health services that can help you improve your health and lifestyle significantly.
+        Our clinical team will explain the program fully to you and answer all of your questions as well as
+        schedule you for your preventative health screening.</p><br></br>
+        <p>Please <a href="https://www.welltrackone.com/web-patients">click here</a> to enroll in the program and you’ll be contacted by one of our clinical team
+        right away.</p><br></br>
+        <p>Thank you,</p><br></br>
+        <p>On behalf of ${broker_first_name} ${broker_last_name}</p><br></br>`;
 
   const brokerText = `<p>Thank you for submitting your client – ${firstName} ${lastName}</p>`;
   const msg_broker = {
     to: broker_email,
-    from: 'info@careone-concierge.com', // Use a verified email address
+    from: 'info@careone-concierge.com',
     subject: 'Confirm',
     html: brokerText,
   };
 
   const msg_patient = {
     to: email,
-    from: 'info@careone-concierge.com', // Use a verified email address
+    from: 'info@careone-concierge.com',
     subject: 'Invite',
-    html: `<p>Dear ${firstName} ${lastName}</p><br></br>
-      <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
-      a Medicare approved preventative wellness program. This program gives you access to
-      preventative health services that can help you improve your health and lifestyle significantly.
-      Our clinical team will explain the program fully to you and answer all of your questions as well as
-      schedule you for your preventative health screening.</p><br></br>
-      <p>Please <a href="https://www.welltrackone.com/web-patients">click here</a> to enroll in the program and you’ll be contacted by one of our clinical team
-      right away.</p><br></br>
-      <p>Thank you,</p><br></br>
-      <p>On behalf of ${broker_first_name} ${broker_last_name}</p><br></br>`,
+    html: patientText,
   };
+  const msg = {
+    to: email, // Change to your recipient's email
+    from: 'your-email@example.com', // Change to your sender's email
+    subject: 'Enroll in the Program',
+    html: `Please <a href="https://www.welltrackone.com/web-patients">click here</a> to enroll in the program and you’ll be contacted by one of our clinical team.`,
+  };
+  
+  sgMail.send(msg)
+    .then(() => {
+      console.log('Email sent successfully');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
-  try {
-    await sgMail.send(msg_patient);
-    await sgMail.send(msg_broker);
-    res.status(200).send('Email sent successfully');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error sending email');
-  }
+  // try {
+  //   await sgMail.send(msg_patient);
+  //   await sgMail.send(msg_broker);
+  //   res.status(200).send('Email sent successfully');
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).send('Error sending email');
+  // }
 });
 
 router.get('/test', async (req, res) => { 
