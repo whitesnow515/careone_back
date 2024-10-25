@@ -139,29 +139,15 @@ router.post('/send-email', async (req, res) => {
     subject: 'Invite',
     html: patientText,
   };
-  const msg = {
-    to: email, // Change to your recipient's email
-    from: 'your-email@example.com', // Change to your sender's email
-    subject: 'Enroll in the Program',
-    html: `Please <a href="https://www.welltrackone.com/web-patients">click here</a> to enroll in the program and you’ll be contacted by one of our clinical team.`,
-  };
-  
-  sgMail.send(msg)
-    .then(() => {
-      console.log('Email sent successfully');
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 
-  // try {
-  //   await sgMail.send(msg_patient);
-  //   await sgMail.send(msg_broker);
-  //   res.status(200).send('Email sent successfully');
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).send('Error sending email');
-  // }
+  try {
+    await sgMail.send(msg_patient);
+    await sgMail.send(msg_broker);
+    res.status(200).send('Email sent successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error sending email');
+  }
 });
 
 router.get('/test', async (req, res) => { 
