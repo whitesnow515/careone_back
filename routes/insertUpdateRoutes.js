@@ -114,16 +114,16 @@ router.post('/saveBrokerData', async (req, res) => {
 router.post('/send-email', async (req, res) => { 
   const { lastName, firstName, email, phone, broker_first_name, broker_last_name, broker_email, agent_number, broker_phone_number, dob, medicare_number } = req.body;
   const patientText = 
-      `<p>Dear ${firstName} ${lastName}</p><br></br>
+      `<p>Dear ${firstName} ${lastName}</p>
         <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
         a Medicare approved preventative wellness program. This program gives you access to
         preventative health services that can help you improve your health and lifestyle significantly.
         Our clinical team will explain the program fully to you and answer all of your questions as well as
-        schedule you for your preventative health screening.</p><br></br>
+        schedule you for your preventative health screening.</p>
         <p>Please <a href="https://www.welltrackone.com/web-patients">click here</a> to enroll in the program and you’ll be contacted by one of our clinical team
-        right away.</p><br></br>
-        <p>Thank you,</p><br></br>
-        <p>On behalf of ${broker_first_name} ${broker_last_name}</p><br></br>`;
+        right away.</p>
+        <p>Thank you,</p>
+        <p>On behalf of ${broker_first_name} ${broker_last_name}</p>`;
 
   const brokerText = `<p>Thank you for submitting your client – ${firstName} ${lastName}</p>`;
   const msg_broker = {
