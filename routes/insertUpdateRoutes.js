@@ -35,7 +35,7 @@ router.post('/saveData', async (req, res) => {
     // Step 7: Check if the row already exists
     const result = await sql.query`
       SELECT * FROM PatientApplicants 
-      WHERE LastName = ${firstName} AND FirstName = ${lastName} AND Email = ${email}
+      WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email}
     `;
 
     if (result.recordset.length > 0) {
@@ -43,7 +43,7 @@ router.post('/saveData', async (req, res) => {
       await sql.query`
         UPDATE PatientApplicants
         SET Phone = ${phone}, DateAdded = ${formattedDateAdded}
-        WHERE LastName = ${firstName} AND FirstName = ${lastName} AND Email = ${email}
+        WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email}
       `;
       return res.send('Patient record updated successfully.');
     } else {
@@ -86,7 +86,7 @@ router.post('/saveBrokerData', async (req, res) => {
     // Step 7: Check if the row already exists
     const result = await sql.query`
       SELECT * FROM PatientApplicants 
-      WHERE LastName = ${firstName} AND FirstName = ${lastName} AND Email = ${email} AND BrokerLastName = ${broker_first_name} AND BrokerFirstName = ${broker_last_name} AND BrokerEmail = ${broker_email}
+      WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_first_name} AND BrokerFirstName = ${broker_last_name} AND BrokerEmail = ${broker_email}
     `;
 
     if (result.recordset.length > 0) {
@@ -94,14 +94,14 @@ router.post('/saveBrokerData', async (req, res) => {
       await sql.query`
         UPDATE PatientApplicants
         SET Phone = ${phone}, DateAdded = ${formattedDateAdded}, BrokerPhone = ${broker_phone_number}, DOB = ${dob}, MedicareNumber = ${medicare_number}
-        WHERE LastName = ${firstName} AND FirstName = ${lastName} AND Email = ${email} AND BrokerLastName = ${broker_first_name} AND BrokerFirstName = ${broker_last_name} AND BrokerEmail = ${broker_email}
+        WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_first_name} AND BrokerFirstName = ${broker_last_name} AND BrokerEmail = ${broker_email}
       `;
       return res.send('Patient record updated successfully.');
     } else {
       // Step 9: If the record does not exist, insert a new row
       await sql.query`
         INSERT INTO PatientApplicants (LastName, FirstName, Email, Phone, Consent, DateAdded, Status, Hidden, MedicareNumber, BrokerNumber, BrokerLastName, BrokerFirstName, BrokerEmail, BrokerPhone, DOB)
-        VALUES (${firstName}, ${lastName}, ${email}, ${phone}, ${consentValue}, ${formattedDateAdded}, ${status}, ${hidden}, ${medicare_number}, ${agent_number}, ${broker_first_name}, ${broker_last_name}, ${broker_email}, ${broker_phone_number}, ${dob})
+        VALUES (${lastName}, ${firstName}, ${email}, ${phone}, ${consentValue}, ${formattedDateAdded}, ${status}, ${hidden}, ${medicare_number}, ${agent_number}, ${broker_first_name}, ${broker_last_name}, ${broker_email}, ${broker_phone_number}, ${dob})
       `;
       return res.send('New patient record added successfully.');
     }
@@ -114,7 +114,7 @@ router.post('/saveBrokerData', async (req, res) => {
 router.post('/send-email', async (req, res) => { 
   const { lastName, firstName, email, phone, broker_first_name, broker_last_name, broker_email, agent_number, broker_phone_number, dob, medicare_number } = req.body;
   const patientText = 
-      `<p>Dear ${lastName} ${firstName}</p>
+      `<p>Dear ${firstName} ${lastName}</p>
         <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
         a Medicare approved preventative wellness program. This program gives you access to
         preventative health services that can help you improve your health and lifestyle significantly.
@@ -125,7 +125,7 @@ router.post('/send-email', async (req, res) => {
         <p>Thank you,</p>
         <p>On behalf of ${broker_first_name} ${broker_last_name}</p>`;
 
-  const brokerText = `<p>Thank you for submitting your client – ${lastName} ${firstName} to the CareONE Preventative Health and Wellness Program.  We will keep you appraised of progress with your client.</p>`;
+  const brokerText = `<p>Thank you for submitting your client – ${firstName} ${lastName} to the CareONE Preventative Health and Wellness Program.  We will keep you appraised of progress with your client.</p>`;
   const msg_broker = {
     to: broker_email,
     from: 'info@careone-concierge.com',
