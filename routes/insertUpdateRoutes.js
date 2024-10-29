@@ -86,7 +86,7 @@ router.post('/saveBrokerData', async (req, res) => {
     // Step 7: Check if the row already exists
     const result = await sql.query`
       SELECT * FROM PatientApplicants 
-      WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_first_name} AND BrokerFirstName = ${broker_last_name} AND BrokerEmail = ${broker_email}
+      WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_last_name} AND BrokerFirstName = ${broker_first_name} AND BrokerEmail = ${broker_email}
     `;
 
     if (result.recordset.length > 0) {
@@ -94,14 +94,14 @@ router.post('/saveBrokerData', async (req, res) => {
       await sql.query`
         UPDATE PatientApplicants
         SET Phone = ${phone}, DateAdded = ${formattedDateAdded}, BrokerPhone = ${broker_phone_number}, DOB = ${dob}, MedicareNumber = ${medicare_number}
-        WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_first_name} AND BrokerFirstName = ${broker_last_name} AND BrokerEmail = ${broker_email}
+        WHERE LastName = ${lastName} AND FirstName = ${firstName} AND Email = ${email} AND BrokerLastName = ${broker_last_name} AND BrokerFirstName = ${broker_first_name} AND BrokerEmail = ${broker_email}
       `;
       return res.send('Patient record updated successfully.');
     } else {
       // Step 9: If the record does not exist, insert a new row
       await sql.query`
         INSERT INTO PatientApplicants (LastName, FirstName, Email, Phone, Consent, DateAdded, Status, Hidden, MedicareNumber, BrokerNumber, BrokerLastName, BrokerFirstName, BrokerEmail, BrokerPhone, DOB)
-        VALUES (${lastName}, ${firstName}, ${email}, ${phone}, ${consentValue}, ${formattedDateAdded}, ${status}, ${hidden}, ${medicare_number}, ${agent_number}, ${broker_first_name}, ${broker_last_name}, ${broker_email}, ${broker_phone_number}, ${dob})
+        VALUES (${lastName}, ${firstName}, ${email}, ${phone}, ${consentValue}, ${formattedDateAdded}, ${status}, ${hidden}, ${medicare_number}, ${agent_number}, ${broker_last_name}, ${broker_first_name}, ${broker_email}, ${broker_phone_number}, ${dob})
       `;
       return res.send('New patient record added successfully.');
     }
@@ -113,6 +113,7 @@ router.post('/saveBrokerData', async (req, res) => {
 
 router.post('/send-email', async (req, res) => { 
   const { lastName, firstName, email, phone, broker_first_name, broker_last_name, broker_email, agent_number, broker_phone_number, dob, medicare_number } = req.body;
+  console.log(firstName, lastName);
   const patientText = 
       `<p>Dear ${firstName} ${lastName}</p>
         <p>Your Medicare Insurance Agent, ${broker_first_name} ${broker_last_name}, has sent you a link that will allow you to enroll in
